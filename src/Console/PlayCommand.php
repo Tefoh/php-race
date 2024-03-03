@@ -13,15 +13,8 @@ class PlayCommand
     public function startRace($players)
     {
         $this->setPlayers($players);
-        $firstPlayerSpeed = $this->firstPlayer->getSpeed();
-        $secondPlayerSpeed = $this->secondPlayer->getSpeed();
-        if ($firstPlayerSpeed > $secondPlayerSpeed) {
-            $this->firstPlayer->setCycles(100);
-            $this->secondPlayer->setCycles(100 / ($firstPlayerSpeed / $secondPlayerSpeed));
-        } else {
-            $this->secondPlayer->setCycles(100);
-            $this->firstPlayer->setCycles(100 / ($secondPlayerSpeed / $firstPlayerSpeed));
-        }
+        $this->setPlayerCycles();
+
         $this->firstPlayer->run();
         $this->secondPlayer->run();
     }
@@ -40,5 +33,19 @@ class PlayCommand
     private function setSecondPlayer(VehicleInterface $secondPlayer): void
     {
         $this->secondPlayer = $secondPlayer;
+    }
+
+    private function setPlayerCycles()
+    {
+        $firstPlayerSpeed = $this->firstPlayer->getSpeed();
+        $secondPlayerSpeed = $this->secondPlayer->getSpeed();
+
+        if ($firstPlayerSpeed > $secondPlayerSpeed) {
+            $this->firstPlayer->setCycles(100);
+            $this->secondPlayer->setCycles(100 / ($firstPlayerSpeed / $secondPlayerSpeed));
+        } else {
+            $this->secondPlayer->setCycles(100);
+            $this->firstPlayer->setCycles(100 / ($secondPlayerSpeed / $firstPlayerSpeed));
+        }
     }
 }
