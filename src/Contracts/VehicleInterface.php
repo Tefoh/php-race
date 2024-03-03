@@ -18,5 +18,5 @@ interface VehicleInterface
 
     public function getName();
 
-    public function finishKilometerDistanceInMinutes(int $distance): int;
+    public function finishKilometerDistanceInMinutes(int $distance): float;
 }

@@ -22,6 +22,8 @@ class PlayCommand
         $this->firstPlayer->run();
         $this->secondPlayer->run();
         $this->showWinner();
+        $this->showPlayerStats($this->fasterVehicle);
+        $this->showPlayerStats($this->slowerVehicle);
     }
 
     private function setPlayers(array $players)
@@ -88,21 +90,36 @@ class PlayCommand
         );
     }
 
-    /**
-     * @return void
-     */
     public function showWinner(): void
     {
-        $player = $this->fasterVehicle['player'];
-
         /** @var VehicleInterface $vehicle */
-        $vehicle = $this->fasterVehicle['vehicle'];
-
-        $finishTimeInHour = $vehicle->finishKilometerDistanceInMinutes(100);
-        $finishTimeInMinutes = $finishTimeInHour * 60;
+        [$playerNumber, $vehicle] = $this->getPlayerAndVehicle($this->fasterVehicle);
 
         \cli\Colors::enable();
-        \cli\line('  %1%2Player number ' . $player . ' with vehicle: ' . $vehicle->getName() . ' won!%n');
-        \cli\line('  %1%4The race has been over in ' . $finishTimeInMinutes .' minutes!%n');
+        \cli\line('  %1%2Player number ' . $playerNumber . ' with vehicle: ' . $vehicle->getName() . ' won the 100KM race!%n');
+    }
+
+    public function showPlayerStats(array $player): void
+    {
+        /** @var VehicleInterface $vehicle */
+        [$playerNumber, $vehicle] = $this->getPlayerAndVehicle($player);
+
+        $finishTimeInHour = $vehicle->finishKilometerDistanceInMinutes(100);
+        $finishTimeInMinutes = number_format($finishTimeInHour * 60, 2);
+
+        \cli\Colors::enable();
+        \cli\line('  %1%4Player number '. $playerNumber .' has finished race in ' . $finishTimeInMinutes .' minutes!%n');
+    }
+
+    public function getPlayerAndVehicle(array $player): array
+    {
+        $playerNumber = $player['player'];
+
+        $vehicle = $player['vehicle'];
+
+        return [
+            $playerNumber,
+            $vehicle
+        ];
     }
 }
