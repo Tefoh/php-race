@@ -10,4 +10,9 @@ trait HasVehicleProperties
         protected string $unit
     )
     { }
+
+    public function getName()
+    {
+        return $this->name;
+    }
 }

@@ -21,6 +21,7 @@ class PlayCommand
 
         $this->firstPlayer->run();
         $this->secondPlayer->run();
+        $this->showWinner();
     }
 
     private function setPlayers(array $players)
@@ -85,5 +86,23 @@ class PlayCommand
                 $fasterVehicle->getSpeed() / $slowerVehicle->getSpeed()
             )
         );
+    }
+
+    /**
+     * @return void
+     */
+    public function showWinner(): void
+    {
+        $player = $this->fasterVehicle['player'];
+
+        /** @var VehicleInterface $vehicle */
+        $vehicle = $this->fasterVehicle['vehicle'];
+
+        $finishTimeInHour = $vehicle->finishKilometerDistanceInMinutes(100);
+        $finishTimeInMinutes = $finishTimeInHour * 60;
+
+        \cli\Colors::enable();
+        \cli\line('  %1%2Player number ' . $player . ' with vehicle: ' . $vehicle->getName() . ' won!%n');
+        \cli\line('  %1%4The race has been over in ' . $finishTimeInMinutes .' minutes!%n');
     }
 }

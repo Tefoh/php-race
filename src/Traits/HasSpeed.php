@@ -10,4 +10,9 @@ trait HasSpeed
     {
         return $this->convertToKiloMeterPerHour();
     }
+
+    public function finishKilometerDistanceInMinutes(int $distance): int
+    {
+        return $distance / $this->getSpeed();
+    }
 }

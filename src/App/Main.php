@@ -47,7 +47,6 @@ class Main
             $i++;
         }
         $this->playCommand->startRace($players);
-        var_dump($players);
     }
 
     /**
