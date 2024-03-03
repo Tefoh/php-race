@@ -2,6 +2,7 @@
 
 namespace PhpRace\App;
 
+use PhpRace\Console\PlayCommand;
 use PhpRace\Entities\Airplane;
 use PhpRace\Entities\Boat;
 use PhpRace\Entities\Vehicle;
@@ -11,6 +12,7 @@ class Main
 {
     private array $vehicles;
     private array $vehicleNames;
+    private PlayCommand $playCommand;
 
     public function __construct()
     {
@@ -18,6 +20,7 @@ class Main
             file_get_contents('./src/vehicles.json'), true
         );
         $this->parseVehicles($vehicleJsonFile);
+        $this->playCommand = new PlayCommand();
     }
 
     public function start()
@@ -43,6 +46,7 @@ class Main
 
             $i++;
         }
+        $this->playCommand->startRace($players);
         var_dump($players);
     }
 
