@@ -36,7 +36,7 @@ class Main
             $class = $vehicle['class'];
             unset($vehicle['class']);
 
-            $players[] = (new $class());
+            $players[] = (new $class(...$vehicle));
             \cli\line();
             array_splice($this->vehicles, $vehicleIndex, 1);
             array_splice($this->vehicleNames, $vehicleIndex, 1);
