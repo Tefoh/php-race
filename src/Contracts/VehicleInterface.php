@@ -9,4 +9,6 @@ interface VehicleInterface
         int $maxSpeed,
         string $unit
     );
+
+    public function getSpeed(): int;
 }
