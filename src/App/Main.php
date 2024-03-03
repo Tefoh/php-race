@@ -22,10 +22,28 @@ class Main
 
     public function start()
     {
-        var_dump([
-            $this->vehicles,
-            $this->vehicleNames,
-        ]);
+        $players = [];
+        $i = 1;
+        while ($i <= 2) {
+            $vehicleIndex = \cli\menu(
+                $this->vehicleNames,
+                null,
+                "Player number ". $i ." Choose a vehicle"
+            );
+
+            $vehicle = $this->vehicles[$vehicleIndex];
+
+            $class = $vehicle['class'];
+            unset($vehicle['class']);
+
+            $players[] = (new $class());
+            \cli\line();
+            array_splice($this->vehicles, $vehicleIndex, 1);
+            array_splice($this->vehicleNames, $vehicleIndex, 1);
+
+            $i++;
+        }
+        var_dump($players);
     }
 
     /**
