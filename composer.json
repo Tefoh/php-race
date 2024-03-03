@@ -2,7 +2,7 @@
     "name": "tefo/php-race",
     "autoload": {
         "psr-4": {
-            "Tefo\\PhpRace\\": "src/"
+            "PhpRace\\": "src/"
         }
     },
     "authors": [
