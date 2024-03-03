@@ -13,4 +13,6 @@ interface VehicleInterface
     public function getSpeed(): int;
 
     public function setCycles(int $cycle): void;
+
+    public function run();
 }
